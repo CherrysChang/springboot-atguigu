@@ -56,9 +56,9 @@ public class Springboot01CacheApplicationTests {
 		//使用redis管理工具去查看，发现里面的键值对被序列化成一长串编码，比较难看。可以将数据以json的方式保存
 		//redisTemplate.opsForValue().set("emp-01",empById);//（这里的Employee就需要序列化一下）
 		
-		//1、将数据以json的方式保存
-		 //(1)自己将对象转为json
-		 //(2)redisTemplate提供了一些序列化规则，可以改变默认的序列化规则。（自己编写一个redis配置类去配置，比如这里的MyRedisConfig类）
+		//1、将数据以json的方式保存（自己编写一个redis配置类去配置，比如这里的MyRedisConfig类）
+		 //(1)将对象转为json
+		 //(2)改变redisTemplate默认的序列化规则。
 		empRedisTemplate.opsForValue().set("emp-01",empById);
 	}
 
