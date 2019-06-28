@@ -29,8 +29,10 @@ import org.springframework.cache.annotation.EnableCaching;
  * 	2、引入redis 的starter（去Spring官方文档去找对应的Starter）
  * 	3、配置redis（在application.properties配置）
  * 	4、测试缓存
- *	（在我们引入了redis后，自动配置类RedisCacheConfiguration就起作用了（因为满足该自动配置类里面的条件所以就起作用了），
- * 	里面注册了redisTemplate、StringRedisTemplate组件来操纵redis）
+ *	（在我们引入了redis后，自动配置类RedisCacheConfiguration就起作用了
+ *	（因为这里RedisAutoConfiguration起作用条件是@ConditionalOnClass({ JedisConnection.class, RedisOperations.class, Jedis.class }，
+ *	RedisAutoConfiguration 里面注册了redisTemplate、StringRedisTemplate组件来操纵redis
+ *	再者查看RedisCacheConfiguration满足里面的条件也就起作用了））
  * 		原理：CacheManager===Cache 缓存组件来实际给缓存中存取数据
  *		1）、引入redis的starter，容器中保存的是 RedisCacheManager；
  *		2）、RedisCacheManager 帮我们创建 RedisCache 来作为缓存组件；RedisCache通过操作redis缓存数据的
