@@ -10,7 +10,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * 1、导入数据库文件 创建出department和employee表
  * 2、创建javaBean封装数据
  * 3、整合MyBatis操作数据库
- * 		1.配置数据源信息
+ * 		1.配置数据源信息（在application.properties配置数据库连接信息）
  * 		2.使用注解版的MyBatis；
  * 			1）、@MapperScan指定需要扫描的mapper接口所在的包
  * 二、快速体验缓存
@@ -20,14 +20,17 @@ import org.springframework.cache.annotation.EnableCaching;
  * 				@Cacheable
  * 				@CacheEvict
  * 				@CachePut
- * 默认使用的是ConcurrentMapCacheManager==ConcurrentMapCache；将数据保存在	ConcurrentMap<Object, Object>中
- * 开发中使用缓存中间件；redis、memcached、ehcache；
+ * 	默认使用的是ConcurrentMapCacheManager及它创建的ConcurrentMapCache组件来作为缓存；缓存是将数据保存在ConcurrentMap<Object, Object>中
+ * 	实际开发中使用缓存中间件；redis、memcached、ehcache；
+ *
  * 三、整合redis作为缓存
  * Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。
- * 	1、安装redis：使用docker；
- * 	2、引入redis的starter
- * 	3、配置redis
+ * 	1、安装redis：使用docker（默认是从国外服务器下载，可以使用Docker中国下载镜像）；
+ * 	2、引入redis 的starter（去Spring官方文档去找对应的Starter）
+ * 	3、配置redis（在application.properties配置）
  * 	4、测试缓存
+ *	（在我们引入了redis后，自动配置类RedisCacheConfiguration就起作用了（因为满足该自动配置类里面的条件所以就起作用了），
+ * 	里面注册了redisTemplate、StringRedisTemplate组件来操纵redis）
  * 		原理：CacheManager===Cache 缓存组件来实际给缓存中存取数据
  *		1）、引入redis的starter，容器中保存的是 RedisCacheManager；
  *		2）、RedisCacheManager 帮我们创建 RedisCache 来作为缓存组件；RedisCache通过操作redis缓存数据的
