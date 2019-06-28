@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
-@CacheConfig(cacheNames="emp"/*,cacheManager = "employeeCacheManager"*/) //抽取缓存的公共配置
+/**
+* 在类上使用 @CacheConfig 抽取缓存的公共配置
+*/
+@CacheConfig(cacheNames="emp"/*,cacheManager = "employeeCacheManager"*/) 
 @Service
 public class EmployeeService {
 
@@ -138,7 +141,13 @@ public class EmployeeService {
         int i = 10/0;
     }
 
-    // @Caching 定义复杂的缓存规则
+    /** 
+     * @Caching 定义复杂的缓存规则。组合注解
+     * 这里 cacheable 和上面注解一样，在方法执行前就需要使用key，put是在方法执行后使用key(即可以使用#result)
+     * 下面的意思表示 你使用key为lastName\id\email这三个的值都可以找到缓存的这个员工数据。
+     * 有一个问题：就是下面因为使用了CachePut注解，表名这个方法每次都会执行。
+     *           所以即使你使用Cacheable注解首次查询数据库缓存了数据，下次再使用lastName查询时依然会查询数据库
+     */
     @Caching(
          cacheable = {
              @Cacheable(/*value="emp",*/key = "#lastName")
