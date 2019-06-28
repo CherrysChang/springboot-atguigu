@@ -35,10 +35,12 @@ import org.springframework.cache.annotation.EnableCaching;
  *	再者查看RedisCacheConfiguration满足里面的条件也就起作用了））
  * 		原理：CacheManager===Cache 缓存组件来实际给缓存中存取数据
  *		1）、引入redis的starter，容器中保存的是 RedisCacheManager；
- *		2）、RedisCacheManager 帮我们创建 RedisCache 来作为缓存组件；RedisCache通过操作redis缓存数据的
- *		3）、默认保存数据 k-v 都是Object；利用序列化保存；如何保存为json
+ *		（这个主要是因为缓存的配置类先后顺序，先满足的会先注册CacheManager组件，其他配置类条件就无法满足（@ConditionalOnMissingBean(CacheManager.class)）就不会生效了）
+ *		2）、RedisCacheManager 帮我们创建 RedisCache 来作为缓存组件；RedisCache通过操作redis缓存数据的。
+ *		3）、保存数据 k-v 都是Object的时候默认利用序列化保存（注意对象需要先实现序列化接口）。如何保存为json？
+ * 		序列化保存原理：
  *   			1、引入了redis的starter，cacheManager变为 RedisCacheManager；
- *   			2、默认创建的 RedisCacheManager 操作redis的时候使用的是 RedisTemplate<Object, Object>
+ *   			2、默认创建的 RedisCacheManager 操作redis的时候使用的是 RedisTemplate<Object, Object>（这个是RedisAutoConfiguration帮我们创建的）
  *   			3、RedisTemplate<Object, Object> 是 默认使用jdk的序列化机制
  *      4）、自定义CacheManager；
  *
