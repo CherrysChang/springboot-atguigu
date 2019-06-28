@@ -22,8 +22,9 @@ public class MyRedisConfig {
             throws UnknownHostException {
         RedisTemplate<Object, Employee> template = new RedisTemplate<Object, Employee>();
         template.setConnectionFactory(redisConnectionFactory);
+        //这里使用接口RedisSerializer的Jackson2JsonRedisSerializer实现。（可以在IDEA中使用ctrl+H查看RedisSerializer的实现）
         Jackson2JsonRedisSerializer<Employee> ser = new Jackson2JsonRedisSerializer<Employee>(Employee.class);
-        template.setDefaultSerializer(ser);
+        template.setDefaultSerializer(ser);//设置默认序列化器
         return template;
     }
     @Bean
