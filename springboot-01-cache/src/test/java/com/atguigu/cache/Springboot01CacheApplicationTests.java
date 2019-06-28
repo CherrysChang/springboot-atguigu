@@ -16,11 +16,12 @@ public class Springboot01CacheApplicationTests {
 	@Autowired
 	EmployeeMapper employeeMapper;
 
+       //StringRedisTemplate、RedisTemplate都是在RedisAutoConfiguration类内给我们注入好的，我们直接引用就可以了
 	@Autowired
-	StringRedisTemplate stringRedisTemplate;  //操作k-v都是字符串的
+	StringRedisTemplate stringRedisTemplate;  //用来操作k-v都是字符串的
 
 	@Autowired
-	RedisTemplate redisTemplate;  //k-v都是对象的
+	RedisTemplate redisTemplate;  //用来操作k-v都是对象的
 
 	@Autowired
 	RedisTemplate<Object, Employee> empRedisTemplate;
@@ -29,11 +30,12 @@ public class Springboot01CacheApplicationTests {
 	/**
 	 * Redis常见的五大数据类型
 	 *  String（字符串）、List（列表）、Set（集合）、Hash（散列）、ZSet（有序集合）
-	 *  stringRedisTemplate.opsForValue()[String（字符串）]
-	 *  stringRedisTemplate.opsForList()[List（列表）]
-	 *  stringRedisTemplate.opsForSet()[Set（集合）]
-	 *  stringRedisTemplate.opsForHash()[Hash（散列）]
-	 *  stringRedisTemplate.opsForZSet()[ZSet（有序集合）]
+	 *  stringRedisTemplate.opsForValue()：操作String（字符串）
+	 *  stringRedisTemplate.opsForList()：操作List（列表）
+	 *  stringRedisTemplate.opsForSet()：操作Set（集合）
+	 *  stringRedisTemplate.opsForHash()：操作Hash（散列）
+	 *  stringRedisTemplate.opsForZSet()：操作ZSet（有序集合）
+	 * 后面可以继续追加使用redis中的那些命令。
 	 */
 	@Test
 	public void test01(){
@@ -50,15 +52,15 @@ public class Springboot01CacheApplicationTests {
 	@Test
 	public void test02(){
 		Employee empById = employeeMapper.getEmpById(1);
-		//默认如果保存对象，使用jdk序列化机制，序列化后的数据保存到redis中
-		//redisTemplate.opsForValue().set("emp-01",empById);
+		//如果保存对象，默认使用jdk序列化机制(JdkSerializationRedisSerializer)，序列化后的数据保存到redis中。
+		//使用redis管理工具去查看，发现里面的键值对被序列化成一长串编码，比较难看。可以将数据以json的方式保存
+		//redisTemplate.opsForValue().set("emp-01",empById);//（这里的Employee就需要序列化一下）
+		
 		//1、将数据以json的方式保存
 		 //(1)自己将对象转为json
-		 //(2)redisTemplate默认的序列化规则；改变默认的序列化规则；
+		 //(2)redisTemplate提供了一些序列化规则，可以改变默认的序列化规则。（自己编写一个redis配置类去配置，比如这里的MyRedisConfig类）
 		empRedisTemplate.opsForValue().set("emp-01",empById);
 	}
-
-
 
 	@Test
 	public void contextLoads() {
