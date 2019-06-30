@@ -40,8 +40,11 @@ import org.springframework.cache.annotation.EnableCaching;
  *		3）、保存数据 k-v 都是Object的时候默认利用序列化保存（注意对象需要先实现序列化接口）。如何保存为json？
  * 		序列化保存原理：
  *   			1、引入了redis的starter，cacheManager变为 RedisCacheManager；
- *   			2、默认创建的 RedisCacheManager 操作redis的时候使用的是 RedisTemplate<Object, Object>（这个是RedisAutoConfiguration帮我们创建的）
+ *   			2、默认创建的 RedisCacheManager 操作redis的时候使用的是 RedisTemplate<Object, Object>
+ *			（ps:这个RedisTemplate是RedisAutoConfiguration帮我们创建的，注册RedisCacheManager组件的入参就是RedisTemplate）
  *   			3、RedisTemplate<Object, Object> 是 默认使用jdk的序列化机制
+ * 			(ps:如果序列化保存为json，我们需要修改默认的序列化机制，比如我们重新注册一个RedisTemplate类型的bean，在里面重设序列化器。
+ * 			由于RedisCacheManager默认使用的是redisTemplate，我们需要自定义一个CacheManager来使用我们自定义的RedisTemplate)			
  *      4）、自定义CacheManager；
  *
  */
