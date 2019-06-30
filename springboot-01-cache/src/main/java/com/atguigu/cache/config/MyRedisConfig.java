@@ -41,7 +41,7 @@ public class MyRedisConfig {
 
 
     //CacheManagerCustomizers可以来定制缓存的一些规则
-    @Primary  //将某个缓存管理器作为默认的
+    @Primary  //将某个缓存管理器作为默认的。（因为这里注册了多个，需要设定一个默认的。不然启动会报错）
     @Bean
     public RedisCacheManager employeeCacheManager(RedisTemplate<Object, Employee> empRedisTemplate){
         RedisCacheManager cacheManager = new RedisCacheManager(empRedisTemplate);
