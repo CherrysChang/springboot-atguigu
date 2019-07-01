@@ -27,17 +27,19 @@ public class Springboot02AmqpApplicationTests {
 	AmqpAdmin amqpAdmin;
 
 	@Test
-	public void createExchange(){
-
+	public void createExchange(){//AmqpAdmin的使用：创建和删除 Queue（消息队列），Exchange（交换器），Binding（绑定消息队列和交换器之间的关联）
+		//以declare开头的都是创建一些组件，以remove、delete开头的都是删除一些组件
+		//创建交换器
 //		amqpAdmin.declareExchange(new DirectExchange("amqpadmin.exchange"));
 //		System.out.println("创建完成");
-
-//		amqpAdmin.declareQueue(new Queue("amqpadmin.queue",true));
-		//创建绑定规则
-
+		
+		//创建消息队列
+//		amqpAdmin.declareQueue(new Queue("amqpadmin.queue",true));//队列的名字，是否持久化
+		
+		//创建绑定规则（下面Binding传参：目的地、目的地类型：QUEUE或者EXCHANGE、交换器名字、路由键、参数头等）
 //		amqpAdmin.declareBinding(new Binding("amqpadmin.queue", Binding.DestinationType.QUEUE,"amqpadmin.exchange","amqp.haha",null));
 
-		//amqpAdmin.de
+		//amqpAdmin.。。。。
 	}
 
 	/**
