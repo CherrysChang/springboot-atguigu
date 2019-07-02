@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+<!--引入thymeleaf、springsecurity的命名空间->
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!--结合thymeleaf模板引擎提供的对SpringSecurity的支持，使用相关安全属性来进行权限控制。前提需要引入thymeleaf和SpringSecurity整合模块包-->	
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -9,6 +11,7 @@
 <h1 align="center">欢迎光临武林秘籍管理系统</h1>
 <div sec:authorize="!isAuthenticated()">
 	<h2 align="center">游客您好，如果想查看武林秘籍 <a th:href="@{/userlogin}">请登录</a></h2>
+	<!--登录请求是默认的/login跳到默认登录页，这里/userlogin是在MySecurityConfig配置中定制的登录页请求-->
 </div>
 <div sec:authorize="isAuthenticated()">
 	<h2><span sec:authentication="name"></span>，您好,您的角色有：
