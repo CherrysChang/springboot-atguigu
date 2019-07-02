@@ -4,9 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 1、引入SpringSecurity；
- * 2、编写SpringSecurity的配置类；
- * 		@EnableWebSecurity   extends WebSecurityConfigurerAdapter
+ * 市面上2个比较常用的安全框架：Apache的Shiro（强大易用） 和 Spring Security（复杂，功能强大，可以无缝整合Spring。SpringBoot底层采用的就是这个作为安全框架）
+ * 
+ * 1、引入SpringSecurity；（引入starter-security）
+ * 2、编写SpringSecurity的配置类；（可以参见Spring官网查看如何配置。这里自定义的配置类参见MySecurityConfig ）
+ * 	标注@EnableWebSecurity注解，并（继承）extends WebSecurityConfigurerAdapter
  * 3、控制请求的访问权限：
  * 		configure(HttpSecurity http) {
  * 		 	http.authorizeRequests().antMatchers("/").permitAll()
