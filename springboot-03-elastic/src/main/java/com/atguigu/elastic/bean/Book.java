@@ -2,7 +2,7 @@ package com.atguigu.elastic.bean;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "atguigu",type = "book")
+@Document(indexName = "atguigu",type = "book")//使用该注解来指名文档的索引、类型
 public class Book {
     private Integer id;
     private String bookName;
