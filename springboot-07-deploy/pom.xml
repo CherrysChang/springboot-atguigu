@@ -33,6 +33,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!--引入热部署依赖。
+		引入之前，修改了java文件，ctrl+f9（build project）虽然重新编译了生成class已经被修改了，但是访问依然不起作用，这个实时编译的class并不能应用到工程中。
+		需要devtools进行热部署。-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
