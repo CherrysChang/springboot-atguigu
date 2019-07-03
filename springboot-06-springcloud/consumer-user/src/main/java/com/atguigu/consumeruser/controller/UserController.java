@@ -9,11 +9,11 @@ import org.springframework.web.client.RestTemplate;
 public class UserController {
 
     @Autowired
-    RestTemplate restTemplate;
+    RestTemplate restTemplate;//帮我们发送http请求
 
     @GetMapping("/buy")
-    public String buyTicket(String name){
-        String s = restTemplate.getForObject("http://PROVIDER-TICKET/ticket", String.class);
+    public String buyTicket(String name){//消费服务
+        String s = restTemplate.getForObject("http://PROVIDER-TICKET/ticket", String.class);//http+服务名+请求服务地址，第二个参数是返回值类型
         return name+"购买了"+s;
     }
 }
