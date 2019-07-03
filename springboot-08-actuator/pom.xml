@@ -25,6 +25,9 @@
 	</properties>
 
 	<dependencies>
+		<!--idea在创建项目时勾选Ops下的Actuator模块。
+		引入该模块，启动项目，控制台会打印很多映射信息Mapped...，如果不引入，控制台只剩下Mapped /error信息了。
+		默认访问这些受监控的信息是需要授权的，如果想访问，可以在application.properties进行配置-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -37,7 +40,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<!--idea在创建项目时勾选Core下的DevTools模块-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
