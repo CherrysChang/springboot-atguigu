@@ -6,8 +6,9 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
  * 注册中心
- * 1、配置Eureka信息
- * 2、@EnableEurekaServer
+ * （idea创建项目勾选cloud discovery下的eureka-server，服务提供者和消费者都是在注册中心里，它们创建勾选的是eureka-discovery）
+ * 1、配置Eureka信息（在application.properties或yml配置）
+ * 2、@EnableEurekaServer（启用注册中心）
  */
 @EnableEurekaServer
 @SpringBootApplication
