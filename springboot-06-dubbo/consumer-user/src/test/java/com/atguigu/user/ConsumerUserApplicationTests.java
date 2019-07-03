@@ -15,7 +15,7 @@ public class ConsumerUserApplicationTests {
 	UserService userService;
 
 	@Test
-	public void contextLoads() {
+	public void contextLoads() {//测试消费者消费服务，前提服务者提供者一直运行中
 
 		userService.hello();
 	}
